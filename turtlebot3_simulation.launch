@@ -1,0 +1,27 @@
+<launch>
+  <!-- Load the URDF file -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro"/>
+
+  <!-- Start Gazebo with the custom world -->
+  <node name="gazebo" pkg="gazebo_ros" type="gazebo" output="screen">
+    <param name="world_name" value="$(find turtlebot3_gazebo)/worlds/empty.world"/>
+  </node>
+
+  <!-- Start the robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+    <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro"/>
+  </node>
+
+  <!-- Start the joint state publisher (for visualization) -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
+    <param name="use_gui" value="true"/>
+  </node>
+
+  <!-- Start Rviz for visualization -->
+  <node name="rviz" pkg="rviz" type="rviz" output="screen">
+    <param name="config" value="$(find turtlebot3_description)/rviz/turtlebot3_model.rviz"/>
+  </node>
+</launch>
+
+
+
